@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">MyMovies</string>
+    <string name="Movie">Enter movie title here</string>
+    <string name="Genre">Enter genre here</string>
+    <string name="Year">Enter year of release here</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="genre">Genre</string>
+    <string name="year">Year</string>
+    <string name="rating">Rating</string>
+    <string-array name="spinnerItems">
+        <item>G</item>
+        <item>PG</item>
+        <item>PG13</item>
+        <item>NC16</item>
+        <item>M18</item>
+        <item>R21</item>
+    </string-array>
 </resources>
