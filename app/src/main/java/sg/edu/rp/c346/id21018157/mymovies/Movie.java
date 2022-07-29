@@ -55,3 +55,5 @@ public class Movie {
         this.rating = rating;
     }
 }
+
+//new
