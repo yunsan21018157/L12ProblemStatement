@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     Spinner spin;
     String rating;
 
+    Movie data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

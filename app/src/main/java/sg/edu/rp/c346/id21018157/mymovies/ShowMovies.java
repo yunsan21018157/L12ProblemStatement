@@ -17,9 +17,19 @@ public class ShowMovies extends AppCompatActivity {
     Button btnShow;
     ListView lv;
     ArrayList<Movie> al;
-    ArrayAdapter<Movie> aa;
+//    ArrayAdapter<Movie> aa;
+    CustomAdapter adapter;
 
     Movie data;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DBHelper dbh = new DBHelper(ShowMovies.this);
+        al.clear();
+        al.addAll(dbh.getAllMovie());
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +40,8 @@ public class ShowMovies extends AppCompatActivity {
         lv = findViewById(R.id.lv);
 
         al = new ArrayList<Movie>();
-        aa = new CustomAdapter(this, R.layout.row, al);
-        lv.setAdapter(aa);
+        adapter = new CustomAdapter(this, R.layout.row, al);
+        lv.setAdapter(adapter);
 
         Intent i = getIntent();
         data = (Movie) i.getSerializableExtra("data");
@@ -42,7 +52,7 @@ public class ShowMovies extends AppCompatActivity {
                 DBHelper db = new DBHelper(ShowMovies.this);
                 al.clear();
                 al.addAll(db.getPG());
-                aa.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
 
                 db.close();
             }

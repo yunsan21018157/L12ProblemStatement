@@ -52,7 +52,7 @@ public class ModifyMovies extends AppCompatActivity {
 
 
             data.setRating(rating);
-            db.updateMovies(data);
+            db.updateMovie(data);
             db.close();
             finish();
         }
