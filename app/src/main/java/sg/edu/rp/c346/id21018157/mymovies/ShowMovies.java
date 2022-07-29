@@ -19,6 +19,7 @@ public class ShowMovies extends AppCompatActivity {
     ArrayList<Movie> al;
     ArrayAdapter<Movie> aa;
 
+    Movie data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
