@@ -25,9 +25,9 @@ public class ShowMovies extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        DBHelper dbh = new DBHelper(ShowMovies.this);
+        DBHelper db = new DBHelper(ShowMovies.this);
         al.clear();
-        al.addAll(dbh.getAllMovie());
+        al.addAll(db.getAllMovies());
         adapter.notifyDataSetChanged();
     }
 
@@ -65,7 +65,7 @@ public class ShowMovies extends AppCompatActivity {
                 Movie data = al.get(position);
                 Intent i = new Intent(ShowMovies.this,
                         ModifyMovies.class);
-                i.putExtra("data", data);
+                //i.putExtra("data", data);
                 startActivity(i);
             }
         });

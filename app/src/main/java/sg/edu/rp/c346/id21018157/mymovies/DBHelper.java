@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "mymovies.db";
@@ -22,23 +21,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
-        @Override
-        public void onCreate (SQLiteDatabase db){
-            String createNoteTableSql = "CREATE TABLE " + TABLE_MOVIES + "("
-                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + COLUMN_TITLE + " TEXT ," + COLUMN_GENRE + " TEXT ,"
-                    + COLUMN_YEAR + " INTEGER ," + COLUMN_RATING + " INTEGER ) ";
-            db.execSQL(createNoteTableSql);
-            Log.i("info", "created tables");
-        }
-
-        @Override
-        public void onUpgrade (SQLiteDatabase db,int oldVersion, int newVersion){
-            db.execSQL("ALTER TABLE " + TABLE_MOVIES + " ADD COLUMN  module_name TEXT ");
-        }
-
-        public long insertMovie (String title, String genre,int year, String rating){
+        public long insertMovies (String title, String genre,int year, String rating){
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(COLUMN_TITLE, title);
@@ -53,8 +38,8 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         //perform records retrieval
-        public ArrayList<Movie> getAllMovie() {
-            ArrayList<Movie> songs = new ArrayList<Movie>();
+        public ArrayList<Movie> getAllMovies() {
+            ArrayList<Movie> movie = new ArrayList<Movie>();
 
             SQLiteDatabase db = this.getReadableDatabase();
 
@@ -69,69 +54,83 @@ public class DBHelper extends SQLiteOpenHelper {
                     String genre = cursor.getString(2);
                     int year = cursor.getInt(3);
                     String rating = cursor.getString(4);
-                    Movie song = new Movie(id, title, genre, year, rating);
+                    Movie movies = new Movie(id, title, genre, year, rating);
 
-                    songs.add(song);
+                    movie.add(movies);
                 } while (cursor.moveToNext());
             }
             cursor.close();
             db.close();
-            return Movie;
-
-
-            public int updateMovie (Movie data){
-                SQLiteDatabase db = this.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put(COLUMN_TITLE, data.getTitle());
-                values.put(COLUMN_GENRE, data.getSingers());
-                values.put(COLUMN_YEAR, data.getYear());
-                values.put(COLUMN_RATING, data.getStars());
-                String condition = COLUMN_ID + "= ?";
-                String[] args = {String.valueOf(data.get_id())};
-                int result = db.update(TABLE_MOVIES, values, condition, args);
-                if (result < 1) {
-                    Log.d("DBHelper", "Update failed");
-                }
-                db.close();
-                return result;
-            }
-
-            public int deleteSong ( int _id){
-                SQLiteDatabase db = this.getWritableDatabase();
-                String condition = COLUMN_ID + "= ?";
-                String[] args = {String.valueOf(id)};
-                int result = db.delete(TABLE_MOVIES, condition, args);
-
-                db.close();
-                return result;
-            }
-
-            public ArrayList<Movie> getPG () {
-                ArrayList<Movie> movies = new ArrayList<Song>();
-
-                SQLiteDatabase db = this.getReadableDatabase();
-                String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_GENRE, COLUMN_YEAR, COLUMN_RATING};
-                String condition = COLUMN_RATING + " = ? ";
-                String[] args = {"pg-13"};
-                Cursor cursor = db.query(TABLE_MOVIES, columns, condition, args,
-                        null, null, null, null);
-
-                if (cursor.moveToFirst()) {
-                    do {
-                        int id = cursor.getInt(0);
-                        String title = cursor.getString(1);
-                        String singers = cursor.getString(2);
-                        int year = cursor.getInt(3);
-                        String rating = cursor.getString(4);
-                        Movie movie = new Movie(id, title, genre, year, rating);
-                        movies.add(movie);
-                    } while (cursor.moveToNext());
-                }
-                cursor.close();
-                db.close();
-                return movies;
-            }
-
+            return movie;
         }
+
+
+        public int updateMovie(Movie data) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_TITLE, data.getTitle());
+            values.put(COLUMN_GENRE, data.getGenre());
+            values.put(COLUMN_YEAR, data.getYear());
+            values.put(COLUMN_RATING, data.getRating());
+            String condition = COLUMN_ID + "= ?";
+            String[] args = {String.valueOf(data.getId())};
+            int result = db.update(TABLE_MOVIES, values, condition, args);
+            if (result < 1) {
+                Log.d("DBHelper", "Update failed");
+            }
+            db.close();
+            return result;
+        }
+
+        public int deleteMovie (int id){
+            SQLiteDatabase db = this.getWritableDatabase();
+            String condition = COLUMN_ID + "= ?";
+            String[] args = {String.valueOf(id)};
+            int result = db.delete(TABLE_MOVIES, condition, args);
+
+            db.close();
+            return result;
+        }
+
+        public ArrayList<Movie> getPG () {
+            ArrayList<Movie> movies = new ArrayList<Movie>();
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_GENRE, COLUMN_YEAR, COLUMN_RATING};
+            String condition = COLUMN_RATING + " = ? ";
+            String[] args = {"PG13"};
+            Cursor cursor = db.query(TABLE_MOVIES, columns, condition, args,
+                    null, null, null, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    int id = cursor.getInt(0);
+                    String title = cursor.getString(1);
+                    String genre = cursor.getString(2);
+                    int year = cursor.getInt(3);
+                    String rating = cursor.getString(4);
+                    Movie movie = new Movie(id, title, genre, year, rating);
+                    movies.add(movie);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            return movies;
+        }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String createNoteTableSql = "CREATE TABLE " + TABLE_MOVIES + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_TITLE + " TEXT ," + COLUMN_GENRE + " TEXT ,"
+                + COLUMN_YEAR + " INTEGER ," + COLUMN_RATING + " INTEGER ) ";
+        db.execSQL(createNoteTableSql);
+        Log.i("info", "created tables");
     }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("ALTER TABLE " + TABLE_MOVIES + " ADD COLUMN  module_name TEXT ");
+    }
+}
 //new

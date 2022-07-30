@@ -17,7 +17,7 @@
         android:id="@+id/etTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/Movie"
+        android:hint="@string/enter_movie_title_here"
         android:minHeight="48dp" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:id="@+id/etGenre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/Genre"
+        android:hint="@string/enter_genre_here"
         android:minHeight="48dp" />
 
     <TextView
@@ -43,6 +43,7 @@
         android:id="@+id/etYear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/enter_year_or_release_here"
         android:ems="10"
         android:inputType="number" />
 
@@ -56,7 +57,7 @@
         android:id="@+id/ratingSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:entries="@array/spinnerItems"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,20 +65,20 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/Insert"
+            android:id="@+id/btnInsert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="insert"
+            android:text="@string/insert"
             android:textColor="@color/black"
             app:backgroundTint="#E6E5E5" />
 
         <Button
-            android:id="@+id/ShowList"
+            android:id="@+id/btnShowList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="show list"
+            android:text="@string/show_list"
             android:textColor="@color/black"
             app:backgroundTint="#E6E5E5" />
     </LinearLayout>

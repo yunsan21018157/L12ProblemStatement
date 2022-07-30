@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class CustomAdapter extends ArrayAdapter {
         TextView tvTitle = rowView.findViewById(R.id.tvTitle);
         TextView tvGenre = rowView.findViewById(R.id.tvGenre);
         TextView tvYear = rowView.findViewById(R.id.tvYear);
-        TextView tvRating = rowView.findViewById(R.id.tvRating);
+        ImageView ivRating = rowView.findViewById(R.id.ivRating);
 
         // Obtain the song information based on the position
         Movie currentMovie = movieList.get(position);
@@ -46,6 +47,19 @@ public class CustomAdapter extends ArrayAdapter {
         tvGenre.setText(currentMovie.getGenre());
         tvYear.setText(String.valueOf(currentMovie.getYear()));
 
+        if (currentMovie.getRating().equals("G")) {
+            ivRating.setImageResource(R.drawable.rating_g);
+        } else if (currentMovie.getRating().equals("PG")) {
+            ivRating.setImageResource(R.drawable.rating_pg);
+        } else if (currentMovie.getRating().equals("PG13")) {
+            ivRating.setImageResource(R.drawable.rating_pg13);
+        } else if (currentMovie.getRating().equals("NC16")) {
+            ivRating.setImageResource(R.drawable.rating_nc16);
+        } else if (currentMovie.getRating().equals("M18")) {
+            ivRating.setImageResource(R.drawable.rating_m18);
+        } else {
+            ivRating.setImageResource(R.drawable.rating_r21);
+        }
 
         return rowView;
     }
