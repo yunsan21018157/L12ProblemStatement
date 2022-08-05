@@ -19,7 +19,6 @@ public class ShowMovies extends AppCompatActivity {
     ArrayList<Movie> al;
 //    ArrayAdapter<Movie> aa;
     CustomAdapter adapter;
-
     Movie data;
 
     @Override
@@ -43,9 +42,6 @@ public class ShowMovies extends AppCompatActivity {
         adapter = new CustomAdapter(this, R.layout.row, al);
         lv.setAdapter(adapter);
 
-        Intent i = getIntent();
-        data = (Movie) i.getSerializableExtra("data");
-
         btnShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +61,7 @@ public class ShowMovies extends AppCompatActivity {
                 Movie data = al.get(position);
                 Intent i = new Intent(ShowMovies.this,
                         ModifyMovies.class);
-                //i.putExtra("data", data);
+                i.putExtra("data", data);
                 startActivity(i);
             }
         });
