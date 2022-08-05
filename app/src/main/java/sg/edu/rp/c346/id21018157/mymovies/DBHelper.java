@@ -92,13 +92,19 @@ public class DBHelper extends SQLiteOpenHelper {
             return result;
         }
 
-        public ArrayList<Movie> getPG () {
+        public ArrayList<Movie> getPG (Boolean filter) {
             ArrayList<Movie> movies = new ArrayList<Movie>();
 
             SQLiteDatabase db = this.getReadableDatabase();
             String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_GENRE, COLUMN_YEAR, COLUMN_RATING};
-            String condition = COLUMN_RATING + " = ? ";
-            String[] args = {"PG13"};
+            String condition = "";
+            String[] args = new String[1];
+
+            if(filter == true){
+                condition = COLUMN_RATING + " = ? ";
+                args[0] = "PG13";
+            } else return getAllMovies();
+
             Cursor cursor = db.query(TABLE_MOVIES, columns, condition, args,
                     null, null, null, null);
 

@@ -47,7 +47,16 @@ public class ShowMovies extends AppCompatActivity {
             public void onClick(View v) {
                 DBHelper db = new DBHelper(ShowMovies.this);
                 al.clear();
-                al.addAll(db.getPG());
+
+                if(btnShow.getText().toString().equalsIgnoreCase("SHOW ALL PG-13 MOVIES")){
+                    al.addAll(db.getPG(true));
+                    btnShow.setText("SHOW ALL MOVIES");
+                }
+                else{
+                    al.addAll(db.getPG(false));
+                    btnShow.setText("SHOW ALL PG-13 MOVIES");
+                }
+
                 adapter.notifyDataSetChanged();
 
                 db.close();
