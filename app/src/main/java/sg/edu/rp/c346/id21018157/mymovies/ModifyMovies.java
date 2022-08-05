@@ -36,7 +36,8 @@ public class ModifyMovies extends AppCompatActivity {
         //initialise variables
         Intent i = getIntent();
         data = (Movie) i.getSerializableExtra("data");
-
+//test
+        etID.setText(data.getId() + "");
         etTitle.setText(data.getTitle());
         etGenre.setText(data.getGenre());
         etYear.setText("" + data.getYear());
